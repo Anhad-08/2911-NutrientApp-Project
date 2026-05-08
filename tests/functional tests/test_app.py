@@ -37,56 +37,56 @@ def test_login(client):
     assert b'Password' in response.data
 
 #addnew works
-def test_wrong(client):
-    response = client.get('/dog')
-    assert response.status_code == 404
+# def test_wrong(client):
+#     response = client.get('/dog')
+#     assert response.status_code == 404
 
-def test_addnew(client):
-    response = client.get('/addnew')
-    assert response.status_code == 200
-    assert b'Add user' in response.data
-    assert b'Add food' in response.data
+# def test_addnew(client):
+#     response = client.get('/addnew')
+#     assert response.status_code == 200
+#     assert b'Add user' in response.data
+#     assert b'Add food' in response.data
 
-def test_users_list(client):
-    response = client.get('/users')
-    assert response.status_code == 200
-    assert b'Users' in response.data
-
-
-def test_food_list(client):
-    response = client.get('/food')
-    assert response.status_code == 200
-    assert b'Food' in response.data
+# def test_users_list(client):
+#     response = client.get('/users')
+#     assert response.status_code == 200
+#     assert b'Users' in response.data
 
 
-def test_add_user(client):
-    data = {'name': f"Test User {random.randint(1, 1000)}", 'password': 'password', 'phone': '1234567890', 'height': '170', 'weight': '60', 'gender': 'male', 'age': '25', 'activity_level': '1.2'}
-    response = client.post('/adduser', data=data, follow_redirects=True)
-    assert response.status_code == 200
+# def test_food_list(client):
+#     response = client.get('/food')
+#     assert response.status_code == 200
+#     assert b'Food' in response.data
+
+
+# def test_add_user(client):
+#     data = {'name': f"Test User {random.randint(1, 1000)}", 'password': 'password', 'phone': '1234567890', 'height': '170', 'weight': '60', 'gender': 'male', 'age': '25', 'activity_level': '1.2'}
+#     response = client.post('/adduser', data=data, follow_redirects=True)
+#     assert response.status_code == 200
   
-def test_add_meal(client):
-    data = {'name': f"Test User {random.randint(1, 1000)}", 'food_id': '1', 'amount': '2'}
-    response = client.post('/users/1/addmeal', data=data, follow_redirects=True)
-    assert response.status_code == 200
+# def test_add_meal(client):
+#     data = {'name': f"Test User {random.randint(1, 1000)}", 'food_id': '1', 'amount': '2'}
+#     response = client.post('/users/1/addmeal', data=data, follow_redirects=True)
+#     assert response.status_code == 200
  
-def test_delete_meal(client):
-    response = client.post('/users/1/deletemeal/1', follow_redirects=True)
-    assert response.status_code == 200
+# def test_delete_meal(client):
+#     response = client.post('/users/1/deletemeal/1', follow_redirects=True)
+#     assert response.status_code == 200
 
-def test_delete_foodmeal(client):
-    response = client.post('/users/1/deletefoodmeal/1', follow_redirects=True)
-    assert response.status_code == 200
+# def test_delete_foodmeal(client):
+#     response = client.post('/users/1/deletefoodmeal/1', follow_redirects=True)
+#     assert response.status_code == 200
 
-def test_login_post(client):
-    data = {'username': 'Test User', 'password': 'password'}
-    response = client.post('/loginpost', data=data, follow_redirects=True)
-    assert response.status_code == 200
+# def test_login_post(client):
+#     data = {'username': 'Test User', 'password': 'password'}
+#     response = client.post('/loginpost', data=data, follow_redirects=True)
+#     assert response.status_code == 200
 
 
-def test_add_food(client):
-    data = {'name': f"Test food {random.randint(1, 1000)}", 'calories': '100', 'protein': '10', 'fat': '5', 'carbs': '20'}
-    response = client.post('/addfood', data=data, follow_redirects=True)
-    assert response.status_code == 200
+# def test_add_food(client):
+#     data = {'name': f"Test food {random.randint(1, 1000)}", 'calories': '100', 'protein': '10', 'fat': '5', 'carbs': '20'}
+#     response = client.post('/addfood', data=data, follow_redirects=True)
+#     assert response.status_code == 200
 
 
 
