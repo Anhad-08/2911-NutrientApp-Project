@@ -1,6 +1,23 @@
 from flask import *
+from db import db
+from models import *
+from pathlib import Path
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from sqlalchemy import select
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "secretAgileCourse"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+app.instance_path = Path(".").resolve()
+
+db.init_app(app)
+login_manager = LoginManager()
+login_manager.login_view = "login"
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return db.get_or_404(User, user_id)
 
 @app.route("/")
 def home():
@@ -36,6 +53,12 @@ def login_post():
         return redirect(url_for("login"))
     login_user(user)
     return redirect(url_for("user_info", user_id=user.id))
+
+@app.route("/user/<int:user_id>")
+def user_info(user_id):
+    user = db.session.get(User, user_id)
+    return render_template("user_info.html", user=user)
+
 
 
 if __name__ == "__main__":
