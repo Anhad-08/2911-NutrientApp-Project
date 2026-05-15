@@ -69,3 +69,13 @@ class FoodMeal(db.Model):
     food = relationship("Food")
 
 # if user input about 2 eggs, that quantity will automatically be converted to 2*50g
+=======
+from sqlalchemy import Integer, String
+from sqlalchemy.orm import mapped_column
+from db import db
+from flask_login import UserMixin
+
+class User(db.Model, UserMixin):
+    id = mapped_column(Integer, primary_key=True)
+    name = mapped_column(String(200), nullable=False, unique=True)
+    password = mapped_column(String(200), nullable=False)
