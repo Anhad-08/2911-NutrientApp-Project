@@ -25,15 +25,22 @@
           
 
         </nav> 
-
-
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div style="color:red;">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% endwith %}
 
         {% block content %}
         {% endblock %}
         <script src="{{ url_for('static', filename='script.js') }}"></script>
        
         <footer>
-            <p>© 2024 My Food Tracker</p>
+            <p>© 2026 My Food Tracker</p>
         </footer>
         
     </body>

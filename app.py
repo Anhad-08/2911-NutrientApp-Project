@@ -154,10 +154,17 @@ def add_user():
     age = request.form["age"]
     activity_level = request.form["activity_level"]
 
+    existing_user = User.query.filter_by(name=name).first()
+
+    if existing_user:
+        flash("Username already exists. Please choose another username.")
+        return redirect(url_for("add_new"))
+
     if gender == "male":
         bmr = 66.5 + 13.75 * int(weight) + 5.003 * int(height) - 6.75 * int(age)
     else:
         bmr = 655.1 + 9.563 * int(weight) + 1.850 * int(height) - 4.676 * int(age)
+
     tdee = bmr * float(activity_level)
 
     user = User(name=name, phone=phone, height=height, weight=weight, gender=gender, age=age, tdee=tdee, password=password)
@@ -165,7 +172,7 @@ def add_user():
     db.session.commit()
 
     updateUsersCSV()
-    
+
     return redirect(url_for("login"))
 
 @app.route("/addfood", methods=["POST"])
